@@ -8,9 +8,9 @@ const App = () => {
 
   const ref = useRef(null);
   
-  const handleClick = (e) => {
-    const xClicked = e.pageX;
-    const yClicked = e.pageY;
+  const generateAngle = (event) => {
+    const xClicked = event.pageX;
+    const yClicked = event.pageY;
     const pageWidth = ref.current.offsetWidth;
     const pageHeight = ref.current.offsetHeight;
 
@@ -24,13 +24,13 @@ const App = () => {
     if (xClicked <= xCentr) {
       if (yClicked <= yCentr) {  //1 part
         degrees = 360 - Math.abs((Math.atan(x/y) * 180 / Math.PI)); 
-      } else {  //3 part
+      } else {   //3 part
         degrees = 180 + Math.abs((Math.atan(x/y) * 180 / Math.PI)); 
       }
     } else {
-      if (yClicked <= yCentr) { //2 part
+      if (yClicked <= yCentr) {  //2 part
         degrees = Math.abs((Math.atan(x/y) * 180 / Math.PI));
-      } else { //4 part
+      } else {   //4 part
         degrees = 90 + Math.abs((Math.atan(y/x) * 180 / Math.PI));
       }
     }
@@ -38,12 +38,16 @@ const App = () => {
   }
 
   return (
-    <div className='page' ref={ref} onClick={e => handleClick(e)}>
-      <div className='arrow'>
+    <div 
+      className='page' 
+      ref={ref} 
+      onClick={event => generateAngle(event)}
+    >
+      <div className='page__arrow'>
         <Arrow turnAngle={turnAngle}/>
       </div>
     </div>
   );
-}
+};
 
 export default App;
